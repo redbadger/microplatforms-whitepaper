@@ -21,6 +21,7 @@
 \documentclass[reprint,amsmath,amssymb,aps]{revtex4-1}
        
 \usepackage{graphicx}% Include figure files
+\usepackage{subcaption}
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}% bold math
 %\usepackage{hyperref}% add hypertext capabilities
@@ -59,28 +60,35 @@ Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here. 
 
 %\tableofcontents
 
-\section{\label{sec:introduction}Introduction}
+\section{Introduction}
+\label{sec:introduction}
 
+When building and delivering a real-world client-server application or service, it is important to consider all the parts that form the product, and without which the product would not operate. Typically we think of the product as two major components - the application itself and the platform it runs on. However, there are many other tools, processes, activities and concerns involved in delivering a Software as a Service (SaaS) product to its users than is covered by the functional features and the runtime environment alone (See \ref{fig:concerns}). 
 
-When building and delivering a real-world client-server application or service, it is important to consider all the parts that form the product, and without which the product would not operate. Typically we think of the product as two major components - the application itself and the platform it runs on. However, there are many other tools, processes, activities and concerns involved in delivering a Software as a Service (SaaS) product to its users than is covered by the functional features and the runtime environment alone (See Fig 1). 
-
-Service name, Programming language(s), Programming paradigm(s), Architectural choices, Integration pattern(s), Transport protocols, Authentication, Authorization, Reporting, ETLs, Databases, Caching, Platform libraries, Service dependencies, CI Pipeline dependencies, 3rd party library dependencies, 3rd party service dependencies, Security threat model, License audit, Compliance audit, Capacity plan, Provisioning plan, Cost reporting plan, Monitoring plan, Maintenance process, Backup and Restore process, Secret management, Secret rotation, On-Call schedule, Configuration management, Workflow management, Alerts, Log aggregation, Unhandled failure aggregation, Operations and incident response runbooks, API documentation, Source Code Repository, Humane Service Registry, Service Discovery Registry, Distributed Tracing Registry, Monitoring Dashboard Registry, Build Artifact Repository, CI pipeline(s): Build, Test, Publish, Integration tests, Contract tests, Canary, Deploy, Post deploy tests.
-
-Fig 1. 48 concerns for a single microservice [Sean Treadway, SoundCloud] [https://youtu.be/NX0sHF8ZZgw?t=17m48s]
-
+\begin{figure}[b]
+        \setlength{\fboxsep}{1em}
+        \fbox{
+                \begin{minipage}{0.43\textwidth}\raggedright
+                        Service name, Programming language(s), Programming paradigm(s), Architectural choices, Integration pattern(s), Transport protocols, Authentication, Authorization, Reporting, ETLs, Databases, Caching, Platform libraries, Service dependencies, CI Pipeline dependencies, 3rd party library dependencies, 3rd party service dependencies, Security threat model, License audit, Compliance audit, Capacity plan, Provisioning plan, Cost reporting plan, Monitoring plan, Maintenance process, Backup and Restore process, Secret management, Secret rotation, On-Call schedule, Configuration management, Workflow management, Alerts, Log aggregation, Unhandled failure aggregation, Operations and incident response runbooks, API documentation, Source Code Repository, Humane Service Registry, Service Discovery Registry, Distributed Tracing Registry, Monitoring Dashboard Registry, Build Artifact Repository, CI pipeline(s): Build, Test, Publish, Integration tests, Contract tests, Canary, Deploy, Post deploy tests. 
+                \end{minipage}
+                }
+                \caption{48 concerns for a single microservice [Sean Treadway, SoundCloud] [https://youtu.be/NX0sHF8ZZgw?t=17m48s]}
+        \label{fig:concerns}
+\end{figure}
+        
 Starting with the software itself, it is crucial that it is thoroughly tested before any part of it can be considered done. Testing is now typically largely automated [https://martinfowler.com/bliki/TestPyramid.html], although manual exploratory testing is also strongly advised [http://www.methodsandtools.com/archive/archive.php?id=65]. Testing activities fit on a scale of the level of integration of all the components involved, from testing each in isolation (e.g. unit testing) to fully integrated testing of the run-time behaviour of the entire application stack. 
 
-Typically, this is supported by a number of different environments [https://www.phparch.com/2009/07/professional-programming-dtap-%E2%80%93-part-1-what-is-dtap/] starting from the lower ones, where external dependencies of services are stubbed [http://xunitpatterns.com/Test%20Stub.html] and moving all the way up to the production environment which serves customers. Traditionally, these environments are named, long-lived, and are often reused for the purposes of various different testing activities (e.g. functional, performance, and penetration testing).
-
+Typically, this is supported by a number of different environments [https://www.phparch.com/2009/07/professional-programming-dtap-\%E2\%80\%93-part-1-what-is-dtap/] starting from the lower ones, where external dependencies of services are stubbed [http://xunitpatterns.com/Test\%20Stub.html] and moving all the way up to the production environment which serves customers. Traditionally, these environments are named, long-lived, and are often reused for the purposes of various different testing activities (e.g. functional, performance, and penetration testing).
+        
 In order to get applications deployed, configured and started in these environments a process of deployment activities is followed, ranging from completely manual to fully automated. There are several different methodologies addressing the change-related risk of deploying to the production environment, ranging from large regular deployments done every few months all the way to Continuous Delivery and Continuous Deployment [https://continuousdelivery.com/]. 
 
 Continuous Deployment is a method in which every change to the codebase gets deployed immediately, which necessitates a fully automated process of testing and deployment, in order to reduce the risk of human error and speed the process up enough so that it doesn’t dominate all the development activities. The result has the benefit of deploying smaller increments, which have far smaller impact when things go wrong, and significantly reduces the scope of diagnosing the failure and the time to recovery. Delivering product in smaller increments also reduces time to market with the first increment already providing value and customer feedback (and potentially generating revenue), while the rest is being developed.
 
 Typically, when following the continuous deployment method, businesses do not want customers to immediately see the change caused by every deployment and so mechanisms such as feature flags [https://martinfowler.com/articles/feature-toggles.html] are introduced in order to decouple deployment of code changes from releases of customer functionality. This has numerous benefits for both sides, since the ability to release is no longer dependent on the ability to deploy and vice versa.
 
-A platform supporting a digital product which is available to customers any time of day, seven days a week also has to have the ability to tolerate failure of infrastructure or individual components without failure of the product itself. This is commonly referred to as high-availability [https://en.wikipedia.org/wiki/High_availability] and is generally achieved by running several instances of the same services spread across geographical locations, so that the application can keep working even when an entire data center is lost. This horizontal replication is also used for scaling the application with customer demand [https://en.wikipedia.org/wiki/Autoscaling].
+A platform supporting a digital product which is available to customers any time of day, seven days a week also has to have the ability to tolerate failure of infrastructure or individual components without failure of the product itself. This is commonly referred to as high-availability [https://en.wikipedia.org/wiki/High\_availability] and is generally achieved by running several instances of the same services spread across geographical locations, so that the application can keep working even when an entire data center is lost. This horizontal replication is also used for scaling the application with customer demand [https://en.wikipedia.org/wiki/Autoscaling].
 
-An important consideration for a product platform is the cost of building it and the ongoing maintenance involved, including infrastructure provisioning, maintenance (security patches) and scaling capacity to support the products that need to run on it. The effort involved should not be under-estimated [http://www.winnou.com/saas.pdf] and is the motivation behind most digital product now running on cloud infrastructure. We will discuss the reasons for this cost reduction in more detail in sections 3 and 4.
+An important consideration for a product platform is the cost of building it and the ongoing maintenance involved, including infrastructure provisioning, maintenance (security patches) and scaling capacity to support the products that need to run on it. The effort involved should not be under-estimated [http://www.winnou.com/saas.pdf] and is the motivation behind most digital product now running on cloud infrastructure. We will discuss the reasons for this cost reduction in more detail in sections \ref{sec:cost} and \ref{sec:automation}.
 
 Finally, a product platform needs to include features supporting the constraints of running digital products in safety-critical or regulated environments, e.g. medicine or finance. This means supporting information security features (e.g. secure secrets management for credentials), role based access control with good identity and access management [http://csrc.nist.gov/rbac/sandhu96.pdf] and full audit trail and other controls necessary to reduce the risks involved in all of the activities described above.
 
@@ -88,10 +96,11 @@ There has been a clear trend over the past two decades of automating as much of 
 
 In this paper we will investigate ways of leveraging automation to design, build and manage everything involved in building and deploying digital product to the level where the entire product platform can be fully owned by a small, cross-functional product delivery team, enabling significantly increased capability and velocity of product delivery. 
 
-In section \ref{sec:benefits} we outline the goals a good product platform should aim to support. In section 3 the current approach of using a shared platform is discussed and an alternative (Microplatforms) is suggested in Sections 6, supported by the concept of managing all aspects of it as source code in Section 5. Finally, we describe a reference architecture of an example Microplatform in Appendix A.
+In section \ref{sec:benefits} we outline the goals a good product platform should aim to support. In section \ref{sec:cost} the current approach of using a shared platform is discussed and an alternative (Microplatforms) is suggested in section \ref{sec:microplatforms}, supported by the concept of managing all aspects of it as source code in section \ref{sec:ascode}. Finally, we describe a reference architecture of an example Microplatform in Appendix A.
 
 
-\section{\label{sec:benefits}Benefits provided by a product platform}
+\section{Benefits provided by a product platform}
+\label{sec:benefits}
 
 A product platform should ideally support several goals of the organisation in order to realise return on the investment of designing and building it in the first place. The main benefit of a product platform should be reducing the time spent on manual operational tasks, deployments and testing, ultimately translating to increased reliability and greater velocity of the teams. A platform should support the cross-functional team in practicing DevOps: building the product features and delivering them to customers quickly and with minimum risk of causing defects or outages.
 
@@ -106,7 +115,8 @@ In the long term, the platform should be flexible enough to support safe technic
 Finally, the platform should have built-in features to support information security - prevent intrusions and minimise their impact if they cannot be prevented - and compliance with internal and external regulation that can be easily demonstrated. At a bare minimum, the platform should have access control features and full auditability support. Ideally, it should also be agnostic of the underlying infrastructure provider in order to avoid vendor lock-in and allow the platform to be portable if needed.
 
 
-\section{\label{sec:cost}The cost of a shared product platform}
+\section{The cost of a shared product platform}
+\label{sec:cost}
 
 Given the goals and required features listed in the previous section, it should be no surprise that designing and building a product platform for a medium to large organisation with many products and product teams involves a large investment of resources and time. The obvious, and thus far the only way of offsetting this cost is to build a single large product platform shared by all the product teams [refs - google, facebook...]. The cost of building a product platform generally breaks down into two parts - the one-time upfront cost and the ongoing cost.
 
@@ -122,11 +132,14 @@ After the initial build is completed, more investment needs to be made on an ong
 
 By far the largest ongoing cost to the business, which is often not explicitly recognised, is the cost of coordination between the product teams and the platform engineering team. Unless every common task from provisioning and getting access to regular deployments and elastic scaling is automated, the product teams need to ask for help from the platform team. The platform team quickly forms a large backlog of day to day tasks to perform, product teams end up queueing behind others, and the platform team have much less time to invest into improvements of the platform itself and automation of the daily tasks. 
 
-In large organisations, the team structure is typically much more complex, forcing the platform team to request help from other teams, like, for example, IT infrastructure, IT security, networking, etc. amplifying the slow-down even further. This results in a situation sketched in Fig. 2, where each product team has several dependencies on solution delivery teams, each of which have multiple different customers and often depend on each other as well.  
+In large organisations, the team structure is typically much more complex, forcing the platform team to request help from other teams, like, for example, IT infrastructure, IT security, networking, etc. amplifying the slow-down even further. This results in a situation sketched in figure \ref{fig:dependencies}, where each product team has several dependencies on solution delivery teams, each of which have multiple different customers and often depend on each other as well.  
 
 
-
-Fig 2. - Team dependency structure with shared solution teams
+\begin{figure}[h]
+        \includegraphics[width=0.45\textwidth]{figs/dependencies}
+        \caption{Team dependency structure with shared solution teams}
+        \label{fig:dependencies}
+\end{figure}
 
 The impact of this effect, especially in the early stages of building a shared platform is so significant, it can cause the entire project to fail completely (since it is no longer helping the product teams deliver value to customers, it is now taking away from that ability), unless the platform team has significant resources to withstand this pressure.
 
@@ -143,19 +156,39 @@ Given the above, our goal should be to enable as much product team autonomy as p
 The ideal situation would therefore be for each product team to be fully in control of their entire product - the application, the platform, the entire life-cycle and everything described in section 1. The only shared dependencies left are the essential ones that have to be shared, i.e. sharing them brings clear benefits (e.g. central systems of record, single sign-on identity providers, source control repositories, artefact registry, etc.). In order for this approach to be practical in a small agile team and safe in the context of a large organisation, we need to leverage as much automation as possible.
 
 
-\section{\label{sec:automation}The rise of automation}
+\section{The rise of automation}
+\label{sec:automation}
 
 In the previous section, we covered the level of effort and the number of people necessary to build a product platform. This, however, is largely a result of building and configuring infrastructure manually. Provisioning and setting up servers, clusters, networks and systems by hand requires a large amount of effort and the complexity and difference of individual tasks involved requires specialisation, requiring yet more people.
  
-Fortunately, as software engineers, we know the way out of this problem: encoding the repetitive tasks (even the ones that require a specialist) in automation. Simplifying a little bit, as more and more tasks are automated, fewer and fewer people and less specialisation is required [Fig 3].
+\begin{figure}[h]
+        \includegraphics[width=0.45\textwidth]{figs/automation}
+        \caption{Effect of automation}
+        \label{fig:automationn}
+\end{figure}
+
+Fortunately, as software engineers, we know the way out of this problem: encoding the repetitive tasks (even the ones that require a specialist) in automation. Simplifying a little bit, as more and more tasks are automated, fewer and fewer people and less specialisation is required (figure \ref{fig:automationn}).
 
 This is not a new finding, automating certain tasks is an accepted practice in multiple industries including software engineering. An obvious example is regression testing using automated unit tests, integration tests and end-to-end tests. Testing used to be a manual task performed by humans following test scripts. Automating it significantly decreased the time between deployments allowing us to get from deploying every few months to several times a day, enabling a completely new working practice known as Continuous Deployment to Production (CDP). This decreases risk of deployments to a minimum due to the size of deployments and reliability of the process. It also minimises mean time to recovery from incidents (requiring a code change to resolve), and results in an overall increase in reliability and a leap in both delivery velocity and ability to adapt to customer needs.
 
 Similarly, the success of cloud services is in a huge part down to allowing automation. Instead of spending weeks manually provisioning servers and network infrastructure, the same infrastructure can be provisioned automatically within minutes. Leveraging cloud services, a small team of engineers can set up a web or mobile application infrastructure that will vastly outperform one set up manually (over weeks or months) by a traditional IT organisation in every measure. [ref?]
 
-[Fig 4 - scaling customer service, a - engineers needed, b - customer value per engineer]
+\begin{figure}[h]
+        \begin{subfigure}{0.45\textwidth}
+                \includegraphics[width=1\textwidth]{figs/scaling}
+                \caption{engineers per customer}
+                \label{fig:engineers-needed}
+        \end{subfigure}
+        \begin{subfigure}{0.45\textwidth}
+                \includegraphics[width=1\textwidth]{figs/customervalue}
+                \caption{customer value per engineer}
+                \label{fig:value-engineer}
+        \end{subfigure}
+        \caption{Scaling customer service}
+        \label{fig:scaling}
+\end{figure}
 
-With increasing level of automation, the number of engineers necessary to support a product grows significantly slower with growth in the number of customers using that product, compared to more manual solutions [ref to google SRE]. As a corollary, with automation, the customer value delivered grows faster with the number of engineers (as more engineers add even more automation, boosting productivity even more), while without it, adding more engineers relatively quickly brings diminishing returns [Fig 4a]. Automation enables relatively small teams of engineers to run products relying on a complex infrastructure whilst supporting millions of customers [ref WhatsApp].
+With increasing level of automation, the number of engineers necessary to support a product grows significantly slower with growth in the number of customers using that product, compared to more manual solutions [ref to google SRE]. As a corollary, with automation, the customer value delivered grows faster with the number of engineers (as more engineers add even more automation, boosting productivity even more), while without it, adding more engineers relatively quickly brings diminishing returns (figure \ref{fig:engineers-needed}). Automation enables relatively small teams of engineers to run products relying on a complex infrastructure whilst supporting millions of customers [ref WhatsApp].
 
 Looking at the relationship another way, customer value delivered that leverages automation grows superlinearly with the number of people supporting the application, while without automation, it grows linearly at best, more likely sub-linearly due to coordination costs incurred from the lack of autonomy. This is one of the reasons start-up companies outperform large corporations: their resource constraints mean they are forced to invest in automation and smart solutions over adding more people, which in turn results in a much more efficient system. When we employ automation, we move the engineering effort higher up the value chain towards customer facing features.
 
@@ -164,7 +197,8 @@ Recent advances in technology, and commoditization of tools and infrastructure, 
 However, automation does not only bring speed and efficiency. Every time an engineer makes a manual change to the configuration of a platform, the knowledge encapsulated in that change is lost. The reason for the change, the time, and the previous state of the infrastructure are all lost. By storing the change as code in a version control system, we have a permanent, irrefutable record of when, who, why etc. This not only provides an audit trail of everything the platform has been since it was conceived, but, more importantly, also accelerates the evolution of the platform because each change can build on top of the captured knowledge of previous changes.
 
 
-\section{\label{sec:ascode}Product platforms as Code}
+\section{Product platforms as Code}
+\label{sec:ascode}
 
 Starting from the industry accepted practices and moving to more novel, recently introduced concepts, we can cover the types of automation and configuration that will together form a fully-featured product platform entirely defined as source code.
 
@@ -198,19 +232,22 @@ For truly stateless microservices, it is simpler if each of the applications has
 
 In a sense, there are two levels of reuse: microservices, reusing the code, where operations fall under the same team as the rest of the application, and services, reusing the instance as well, where the ownership is more complex and coordination is necessary.
 
-\section{\label{sec:microplatforms}}Microplatforms}
+\section{Microplatforms}
+\label{sec:microplatforms}
 
 Building on everything from the previous sections, we can now give some clarity to the term Microplatforms, that we use to refer to the model of runtime environment management we describe in this paper.
 
 The key feature of Microplatforms is not technical, it is organisational - the concept of product team autonomy. This is important, because all of Engineering can (and should) be answerable to Product (ultimately customers) rather than Technology. Technology is a means to an end, an enabler, a multiplier. Autonomous cross-functional teams can leverage technology to meet the product demands of the customer. Infrastructure automation is what enables them to do so.
 
-Consider the diagram from Fig 4 [automation v resource cost] again, this time with infrastructure approaches and technologies superimposed on the spectrum (Fig 5). 
-
-Fig. 5 - Automation techniques
-
-With the currently available level of automation, it is now entirely possible for a cross-functional team of ten to operate a fully-featured product platform for their application. This level of vertical integration has numerous benefits.
+Consider the diagram from figure \ref{fig:automationn} again, this time with infrastructure approaches and technologies superimposed on the spectrum (figure \ref{fig:automation-techniques}). With the currently available level of automation, it is now entirely possible for a cross-functional team of ten to operate a fully-featured product platform for their application. This level of vertical integration has numerous benefits.
 
 It removes the coordination cost of all product teams depending on a single platform team. If a team needs to change some aspect of their platform or add a missing feature, they can do so for themselves. A platform team will most likely still exist, but the product it delivers is the design and automation of a platform, not the infrastructure itself. This team can become an owner and steward of the platform design, which can and should be internally open source, so that everyone can contribute and the platform engineers can transition into expert support and innovation roles, rather than day to day operations. This is a tried and tested approach which works well for shared, reusable code libraries and services []. With the shared dependency removed, the organisation becomes more horizontally scalable, just like software systems do. Vertical integration leads to horizontal scalability.
+
+\begin{figure}[h]
+        \includegraphics[width=0.45\textwidth]{figs/automation-tools}
+        \caption{Automation techniques}
+        \label{fig:automation-techniques}
+\end{figure}
 
 Small separate platforms also provide a much smaller blast radius in case things go wrong. On a shared platform, a lot of effort needs to go into preventing cascading failures caused by one application overloading a shared resource and in turn causing a different bottleneck to cause more failure. Isolation features like this are a case of multi-tenancy support, which needs to be built into a shared product platform. This can be completely omitted from a Microplatforms based design.
 

@@ -4,4 +4,6 @@ __*
 *.fls
 *.log
 *.synctex.gz
+*.bbl
+*.blg
 paperNotes.bib
