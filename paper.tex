@@ -61,7 +61,7 @@ Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here. 
 
 %\tableofcontents
 
-\section{Introduction}
+\section*{Introduction}
 \label{sec:introduction}
 
 When building and delivering a real-world client-server application or service, it is important to consider all the parts that form the product, and without which the product would not operate. Typically we think of the product as two major components - the application itself and the platform it runs on. However, there are many other tools, processes, activities and concerns involved in delivering a Software as a Service (SaaS) product to its users than is covered by the functional features and the runtime environment alone (See \ref{fig:concerns}). 
@@ -97,7 +97,7 @@ There has been a clear trend over the past two decades of automating as much of 
 
 In this paper we will investigate ways of leveraging automation to design, build and manage everything involved in building and deploying digital product to the level where the entire product platform can be fully owned by a small, cross-functional product delivery team, enabling significantly increased capability and velocity of product delivery. 
 
-In section \ref{sec:benefits} we outline the goals a good product platform should aim to support. In section \ref{sec:cost} the current approach of using a shared platform is discussed and an alternative (Microplatforms) is suggested in section \ref{sec:microplatforms}, supported by the concept of managing all aspects of it as source code in section \ref{sec:ascode}. Finally, we describe a reference architecture of an example Microplatform in Appendix A.
+In section \ref{sec:benefits} we outline the goals a good product platform should aim to support. In section \ref{sec:cost} the current approach of using a shared platform is discussed and an alternative (Microplatforms) is suggested in section \ref{sec:microplatforms}, supported by the concept of managing all aspects of it as source code in section \ref{sec:ascode}. Finally, we describe a reference architecture of an example Microplatform in Appendix \ref{sec:architecture}.
 
 
 \section{Benefits provided by a product platform}
@@ -154,7 +154,7 @@ The common theme and, in our opinion, the underlying source of the shared platfo
 
 Given the above, our goal should be to enable as much product team autonomy as possible, removing all of the incidental dependencies that are not part the business or customer problem being solved, but rather are created by the solution that has been chosen (often without involving the product delivery team). With a better informed choice of solution, instead of solving the incidental problems and making incidental dependencies more efficient, we can simply make the problems not occur in the first place and remove the dependencies entirely.
 
-The ideal situation would therefore be for each product team to be fully in control of their entire product - the application, the platform, the entire life-cycle and everything described in section 1. The only shared dependencies left are the essential ones that have to be shared, i.e. sharing them brings clear benefits (e.g. central systems of record, single sign-on identity providers, source control repositories, artefact registry, etc.). In order for this approach to be practical in a small agile team and safe in the context of a large organisation, we need to leverage as much automation as possible.
+The ideal situation would therefore be for each product team to be fully in control of their entire product - the application, the platform, the entire life-cycle and everything described in section \ref{sec:benefits}. The only shared dependencies left are the essential ones that have to be shared, i.e. sharing them brings clear benefits (e.g. central systems of record, single sign-on identity providers, source control repositories, artefact registry, etc.). In order for this approach to be practical in a small agile team and safe in the context of a large organisation, we need to leverage as much automation as possible.
 
 
 \section{The rise of automation}
@@ -287,7 +287,7 @@ All of the above - automation, immutability, idempotence and autonomy are cases 
 
 The chief guiding principle in every decision made when designing a product platform should be to try to minimise complexity above everything else. This, in our opinion, extends to all software engineering, as the human capacity for understanding complexity is the biggest limiting factor of the systems we design and build.
 
-\section{\label{sec:summary}Summary}
+\section*{\label{sec:summary}Summary}
 
 Repeat the 5 things that enable Microplatforms
 Repeat the 3 process/engineering approaches that Microplatforms 
