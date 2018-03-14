@@ -19,9 +19,10 @@
 %  4)  latex apssamp.tex
 %
 \documentclass[reprint,amsmath,amssymb,aps]{revtex4-1}
-       
+
 \usepackage{graphicx}% Include figure files
 \usepackage{subcaption}
+\usepackage[hidelinks]{hyperref}
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}% bold math
 \usepackage[british]{babel}
@@ -50,11 +51,11 @@
 \affiliation{Red Badger Consulting Ltd.}
 
 \date{\today}% It is always \today, today,
-                %  but any date may be explicitly specified
+%  but any date may be explicitly specified
 
 \begin{abstract}
-Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here. 
-Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here. 
+	Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here.
+	Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here.
 \end{abstract}
 
 \maketitle
@@ -64,24 +65,24 @@ Abstract goes here. Abstract goes here. Abstract goes here. Abstract goes here. 
 \section*{Introduction}
 \label{sec:introduction}
 
-When building and delivering a real-world client-server application or service, it is important to consider all the parts that form the product, and without which the product would not operate. Typically we think of the product as two major components - the application itself and the platform it runs on. However, there are many other tools, processes, activities and concerns involved in delivering a Software as a Service (SaaS) product to its users than is covered by the functional features and the runtime environment alone (See \ref{fig:concerns}). 
+When building and delivering a real-world client-server application or service, it is important to consider all the parts that form the product, and without which the product would not operate. Typically we think of the product as two major components - the application itself and the platform it runs on. However, there are many other tools, processes, activities and concerns involved in delivering a Software as a Service (SaaS) product to its users than is covered by the functional features and the runtime environment alone (See \ref{fig:concerns}).
 
 \begin{figure}[b]
-        \setlength{\fboxsep}{1em}
-        \fbox{
-                \begin{minipage}{0.43\textwidth}\raggedright
-                        Service name, Programming language(s), Programming paradigm(s), Architectural choices, Integration pattern(s), Transport protocols, Authentication, Authorization, Reporting, ETLs, Databases, Caching, Platform libraries, Service dependencies, CI Pipeline dependencies, 3rd party library dependencies, 3rd party service dependencies, Security threat model, License audit, Compliance audit, Capacity plan, Provisioning plan, Cost reporting plan, Monitoring plan, Maintenance process, Backup and Restore process, Secret management, Secret rotation, On-Call schedule, Configuration management, Workflow management, Alerts, Log aggregation, Unhandled failure aggregation, Operations and incident response runbooks, API documentation, Source Code Repository, Humane Service Registry, Service Discovery Registry, Distributed Tracing Registry, Monitoring Dashboard Registry, Build Artifact Repository, CI pipeline(s): Build, Test, Publish, Integration tests, Contract tests, Canary, Deploy, Post deploy tests. 
-                \end{minipage}
-                }
-                \caption{48 concerns for a single microservice [Sean Treadway, SoundCloud] [https://youtu.be/NX0sHF8ZZgw?t=17m48s]}
-        \label{fig:concerns}
+	\setlength{\fboxsep}{1em}
+	\fbox{
+		\begin{minipage}{0.43\textwidth}\raggedright
+			Service name, Programming language(s), Programming paradigm(s), Architectural choices, Integration pattern(s), Transport protocols, Authentication, Authorization, Reporting, ETLs, Databases, Caching, Platform libraries, Service dependencies, CI Pipeline dependencies, 3rd party library dependencies, 3rd party service dependencies, Security threat model, License audit, Compliance audit, Capacity plan, Provisioning plan, Cost reporting plan, Monitoring plan, Maintenance process, Backup and Restore process, Secret management, Secret rotation, On-Call schedule, Configuration management, Workflow management, Alerts, Log aggregation, Unhandled failure aggregation, Operations and incident response runbooks, API documentation, Source Code Repository, Humane Service Registry, Service Discovery Registry, Distributed Tracing Registry, Monitoring Dashboard Registry, Build Artifact Repository, CI pipeline(s): Build, Test, Publish, Integration tests, Contract tests, Canary, Deploy, Post deploy tests.
+		\end{minipage}
+	}
+	\caption{48 concerns for a single microservice~\cite{Treadway17}}
+	\label{fig:concerns}
 \end{figure}
-        
-Starting with the software itself, it is crucial that it is thoroughly tested before any part of it can be considered done. Testing is now typically largely automated [https://martinfowler.com/bliki/TestPyramid.html], although manual exploratory testing is also strongly advised [http://www.methodsandtools.com/archive/archive.php?id=65]. Testing activities fit on a scale of the level of integration of all the components involved, from testing each in isolation (e.g. unit testing) to fully integrated testing of the run-time behaviour of the entire application stack. 
+
+Starting with the software itself, it is crucial that it is thoroughly tested before any part of it can be considered done. Testing is now typically largely automated~\cite{FowlerTestPyramid}, although manual exploratory testing is also strongly advised [http://www.methodsandtools.com/archive/archive.php?id=65]. Testing activities fit on a scale of the level of integration of all the components involved, from testing each in isolation (e.g. unit testing) to fully integrated testing of the run-time behaviour of the entire application stack.
 
 Typically, this is supported by a number of different environments [https://www.phparch.com/2009/07/professional-programming-dtap-\%E2\%80\%93-part-1-what-is-dtap/] starting from the lower ones, where external dependencies of services are stubbed [http://xunitpatterns.com/Test\%20Stub.html] and moving all the way up to the production environment which serves customers. Traditionally, these environments are named, long-lived, and are often reused for the purposes of various different testing activities (e.g. functional, performance, and penetration testing).
-        
-In order to get applications deployed, configured and started in these environments a process of deployment activities is followed, ranging from completely manual to fully automated. There are several different methodologies addressing the change-related risk of deploying to the production environment, ranging from large regular deployments done every few months all the way to Continuous Delivery and Continuous Deployment [https://continuousdelivery.com/]. 
+
+In order to get applications deployed, configured and started in these environments a process of deployment activities is followed, ranging from completely manual to fully automated. There are several different methodologies addressing the change-related risk of deploying to the production environment, ranging from large regular deployments done every few months all the way to Continuous Delivery and Continuous Deployment [https://continuousdelivery.com/].
 
 Continuous Deployment is a method in which every change to the codebase gets deployed immediately, which necessitates a fully automated process of testing and deployment, in order to reduce the risk of human error and speed the process up enough so that it doesn’t dominate all the development activities. The result has the benefit of deploying smaller increments, which have far smaller impact when things go wrong, and significantly reduces the scope of diagnosing the failure and the time to recovery. Delivering product in smaller increments also reduces time to market with the first increment already providing value and customer feedback (and potentially generating revenue), while the rest is being developed.
 
@@ -95,7 +96,7 @@ Finally, a product platform needs to include features supporting the constraints
 
 There has been a clear trend over the past two decades of automating as much of the above activities and treating them as another part of the product itself. This is the core proposition of cloud services and a key concept of the DevOps movement [https://martinfowler.com/bliki/DevOpsCulture.html].
 
-In this paper we will investigate ways of leveraging automation to design, build and manage everything involved in building and deploying digital product to the level where the entire product platform can be fully owned by a small, cross-functional product delivery team, enabling significantly increased capability and velocity of product delivery. 
+In this paper we will investigate ways of leveraging automation to design, build and manage everything involved in building and deploying digital product to the level where the entire product platform can be fully owned by a small, cross-functional product delivery team, enabling significantly increased capability and velocity of product delivery.
 
 In section \ref{sec:benefits} we outline the goals a good product platform should aim to support. In section \ref{sec:cost} the current approach of using a shared platform is discussed and an alternative (Microplatforms) is suggested in section \ref{sec:microplatforms}, supported by the concept of managing all aspects of it as source code in section \ref{sec:ascode}. Finally, we describe a reference architecture of an example Microplatform in Appendix \ref{sec:architecture}.
 
@@ -123,7 +124,7 @@ Given the goals and required features listed in the previous section, it should 
 
 The initial investment involves the design, building, stabilising and scaling of the platform, typically done manually in the past, i.e. provisioning servers on premise or in the cloud, configuring them, linking them into HA clusters, setting up networking, etc. This requires specialist skills typically leading to the formation of a platform engineering team []. The cost of this initial phase always ends up significantly more than expected, understood or attributed.
 
-Sharing the platform implicitly requires multi-tenancy features, e.g. the concept of organisations and projects, granular role-based access control, resource limits and isolation, etc. Moreover, in order for the platform to be shared by all teams, the feature set needs to be a union of all the features required by each team. In the theoretical extreme cases, this means supporting $n$ disjoint sets of features for $n$ teams, or forcing all the teams to use the single set of features prescribed by the platform. 
+Sharing the platform implicitly requires multi-tenancy features, e.g. the concept of organisations and projects, granular role-based access control, resource limits and isolation, etc. Moreover, in order for the platform to be shared by all teams, the feature set needs to be a union of all the features required by each team. In the theoretical extreme cases, this means supporting $n$ disjoint sets of features for $n$ teams, or forcing all the teams to use the single set of features prescribed by the platform.
 
 The former extreme is very costly to scale and requires a lot of engineering effort to support, while the latter limits the product team’s ability to deliver exactly what is needed by the customer, as the team has to work around decisions made by someone else (and for someone else). This is an example of the 80/20 rule where a shared platform will get you 80% of the way very easily and the rest becomes a significant challenge, which just ends up frustrating the efforts of the team and the business.
 
@@ -131,22 +132,22 @@ Overall the feature set of a shared platform ends up significantly larger than t
 
 After the initial build is completed, more investment needs to be made on an ongoing basis to run operations, i.e. provision new hardware, patch operating systems with fixes, add more resources, clean up older instances of services, etc. In order to serve the business for several years, new features need to be added as they become available in the industry in order to stay within the recognised best practice (often referred to as evergreening).
 
-By far the largest ongoing cost to the business, which is often not explicitly recognised, is the cost of coordination between the product teams and the platform engineering team. Unless every common task from provisioning and getting access to regular deployments and elastic scaling is automated, the product teams need to ask for help from the platform team. The platform team quickly forms a large backlog of day to day tasks to perform, product teams end up queueing behind others, and the platform team have much less time to invest into improvements of the platform itself and automation of the daily tasks. 
+By far the largest ongoing cost to the business, which is often not explicitly recognised, is the cost of coordination between the product teams and the platform engineering team. Unless every common task from provisioning and getting access to regular deployments and elastic scaling is automated, the product teams need to ask for help from the platform team. The platform team quickly forms a large backlog of day to day tasks to perform, product teams end up queueing behind others, and the platform team have much less time to invest into improvements of the platform itself and automation of the daily tasks.
 
-In large organisations, the team structure is typically much more complex, forcing the platform team to request help from other teams, like, for example, IT infrastructure, IT security, networking, etc. amplifying the slow-down even further. This results in a situation sketched in figure \ref{fig:dependencies}, where each product team has several dependencies on solution delivery teams, each of which have multiple different customers and often depend on each other as well.  
+In large organisations, the team structure is typically much more complex, forcing the platform team to request help from other teams, like, for example, IT infrastructure, IT security, networking, etc. amplifying the slow-down even further. This results in a situation sketched in figure \ref{fig:dependencies}, where each product team has several dependencies on solution delivery teams, each of which have multiple different customers and often depend on each other as well.
 
 
 \begin{figure}[h]
-        \includegraphics[width=0.45\textwidth]{figs/dependencies}
-        \caption{Team dependency structure with shared solution teams}
-        \label{fig:dependencies}
+	\includegraphics[width=0.45\textwidth]{figs/dependencies}
+	\caption{Team dependency structure with shared solution teams}
+	\label{fig:dependencies}
 \end{figure}
 
 The impact of this effect, especially in the early stages of building a shared platform is so significant, it can cause the entire project to fail completely (since it is no longer helping the product teams deliver value to customers, it is now taking away from that ability), unless the platform team has significant resources to withstand this pressure.
 
 The overall cost of building and operating a shared product platform is large enough to pose a serious risk to the business. Typically, when things do not go well, this leads to resistance to cut the losses - the sunk cost fallacy [https://youarenotsosmart.com/2011/03/25/the-sunk-cost-fallacy/]. Instead of trying again, or exploring different solutions, the attitude turns into “we will make it work” and results in products being built on a mediocre platform with reliability and scaling issues, increasing risk of preventable outages and slowing down product delivery. This is the final, often unrecognised, cost of a shared product platform - the missed opportunity cost of not delivering as much customer value as possible.
 
-Even when things go well, the size of the investment means that when, eventually, the time comes to abandon the current platform in order to innovate using the latest available technology, nobody is willing to make the investment again, even though it could bring an order of magnitude improvement in efficiency of software delivery. This could be described as technology lock-in or a solution lock-in (similar to vendor lock-in []) - with a large-scale platform build, the required investment is so large that a single organisation is not likely to get a return on investment before the need to iterate on technology choices appears because the pace of technical innovation in the industry is so rapid. 
+Even when things go well, the size of the investment means that when, eventually, the time comes to abandon the current platform in order to innovate using the latest available technology, nobody is willing to make the investment again, even though it could bring an order of magnitude improvement in efficiency of software delivery. This could be described as technology lock-in or a solution lock-in (similar to vendor lock-in []) - with a large-scale platform build, the required investment is so large that a single organisation is not likely to get a return on investment before the need to iterate on technology choices appears because the pace of technical innovation in the industry is so rapid.
 
 It may seem like the only option left is to not spend the effort of building a shared platform in the first place and instead reach for a solution available in one of the cloud vendor offerings. This reduces the cost of building and scaling the platform, but the cost of sharing and the risk of lock-in stays. Further, the organisation is no longer fully in control of the available tools or the way they are being used by the teams and as a result, most organisations opt for some form of governance around the cloud offering as well, which effectively leads to the same situation as the custom build in terms of coordination cost, and the limited, centrally managed set of available features. Moving to a cloud native solution seems to treat some of the symptoms of the problem, but it does not cure the underlying cause, nor does it guarantee the end result will be any more fit for purpose.
 
@@ -161,11 +162,11 @@ The ideal situation would therefore be for each product team to be fully in cont
 \label{sec:automation}
 
 In the previous section, we covered the level of effort and the number of people necessary to build a product platform. This, however, is largely a result of building and configuring infrastructure manually. Provisioning and setting up servers, clusters, networks and systems by hand requires a large amount of effort and the complexity and difference of individual tasks involved requires specialisation, requiring yet more people.
- 
+
 \begin{figure}[h]
-        \includegraphics[width=0.45\textwidth]{figs/automation}
-        \caption{Effect of automation}
-        \label{fig:automationn}
+	\includegraphics[width=0.45\textwidth]{figs/automation}
+	\caption{Effect of automation}
+	\label{fig:automationn}
 \end{figure}
 
 Fortunately, as software engineers, we know the way out of this problem: encoding the repetitive tasks (even the ones that require a specialist) in automation. Simplifying a little bit, as more and more tasks are automated, fewer and fewer people and less specialisation is required (figure \ref{fig:automationn}).
@@ -175,18 +176,18 @@ This is not a new finding, automating certain tasks is an accepted practice in m
 Similarly, the success of cloud services is in a huge part down to allowing automation. Instead of spending weeks manually provisioning servers and network infrastructure, the same infrastructure can be provisioned automatically within minutes. Leveraging cloud services, a small team of engineers can set up a web or mobile application infrastructure that will vastly outperform one set up manually (over weeks or months) by a traditional IT organisation in every measure. [ref?]
 
 \begin{figure}[h]
-        \begin{subfigure}{0.45\textwidth}
-                \includegraphics[width=1\textwidth]{figs/scaling}
-                \caption{engineers per customer}
-                \label{fig:engineers-needed}
-        \end{subfigure}
-        \begin{subfigure}{0.45\textwidth}
-                \includegraphics[width=1\textwidth]{figs/customervalue}
-                \caption{customer value per engineer}
-                \label{fig:value-engineer}
-        \end{subfigure}
-        \caption{Scaling customer service}
-        \label{fig:scaling}
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=1\textwidth]{figs/scaling}
+		\caption{engineers per customer}
+		\label{fig:engineers-needed}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=1\textwidth]{figs/customervalue}
+		\caption{customer value per engineer}
+		\label{fig:value-engineer}
+	\end{subfigure}
+	\caption{Scaling customer service}
+	\label{fig:scaling}
 \end{figure}
 
 With increasing level of automation, the number of engineers necessary to support a product grows significantly slower with growth in the number of customers using that product, compared to more manual solutions [ref to google SRE]. As a corollary, with automation, the customer value delivered grows faster with the number of engineers (as more engineers add even more automation, boosting productivity even more), while without it, adding more engineers relatively quickly brings diminishing returns (figure \ref{fig:engineers-needed}). Automation enables relatively small teams of engineers to run products relying on a complex infrastructure whilst supporting millions of customers [ref WhatsApp].
@@ -215,7 +216,7 @@ In order to support high availability and reliability guarantees, it is necessar
 
 In recent years, cluster orchestration has been distilled into easy to use tools, which provide all of the features above out of the box, e.g. Mesos, Docker in Swarm Mode, Kubernetes, etc. These are generally based on a concept of control loops reconciling the current state of the cluster with the desired state, declared in the cluster configuration [ref]. This means the cluster can automatically respond to changes in the underlying infrastructure (e.g. a machine failing, load increasing) as well as changes in the desired state, e.g. a new version of a service being available. Constraints can be put on the reconciliation strategies (e.g. only one instance of a service can change at a time) resulting in gradual, zero-downtime upgrades.
 
-An important consequence of the way modern cluster management software is configured is the ability to provide \textbf{service orchestration as code}, i.e. the state of the cluster is configured down to the desired microservices that should run on it and their names, number of replicas and deployment strategies. Coupled with service discovery, this makes it significantly easier to operate applications built with a microservices architecture. 
+An important consequence of the way modern cluster management software is configured is the ability to provide \textbf{service orchestration as code}, i.e. the state of the cluster is configured down to the desired microservices that should run on it and their names, number of replicas and deployment strategies. Coupled with service discovery, this makes it significantly easier to operate applications built with a microservices architecture.
 
 Microservices provide numerous architectural benefits - they can be built, tested and deployed in isolation, independently evolved, scaled and replaced and generally provide great design flexibility. The downside is the complexity of building, testing and operating complete systems composed of many microservices. Testing and operating a monolithic application is very easy. It is built as a whole, deployed as a whole and tested as a whole and there is no risk of a part of it suddenly changing, breaking the whole. This property does not hold for microservices - by definition they come and go, their API contracts change and even knowing what exactly is running in a given runtime environment is often a difficult task.
 
@@ -229,7 +230,7 @@ In Fig 1 we show 48 cross-cutting concerns, identified by Sean Treadway [], that
 
 With microservice orchestration and policy being captured as code, the question arises as to whether or not to share microservice instances between application stacks. In other words, can each application have its own replica of the same microservice or should there be a shared instance? Notice this choice is only valid for stateless microservices, as when replicating microservices which hold state, data replication and distributed transaction concerns arise, which are typically hard enough to solve to warrant being solved once and only once. This difficulty should not be underestimated and it is often a good approach to try to split the microservice into its business logic and persistent data storage concerns and separate out as much of the stateless part of as possible, e.g. by using a Database as a Service (DbaaS). The business logic then becomes a separate, now stateless, microservice.
 
-For truly stateless microservices, it is simpler if each of the applications has its own copy of a microservice treating it simply as a module of the system, re-using and sharing only its source code. In order to share a microservice instance, it needs to be fully treated as a service, as it is no longer under the control of the team managing the application - it essentially becomes a 3rd party dependency. In that case, it should have an agreed service level, support model, documentation, versioning and migration strategy, etc. 
+For truly stateless microservices, it is simpler if each of the applications has its own copy of a microservice treating it simply as a module of the system, re-using and sharing only its source code. In order to share a microservice instance, it needs to be fully treated as a service, as it is no longer under the control of the team managing the application - it essentially becomes a 3rd party dependency. In that case, it should have an agreed service level, support model, documentation, versioning and migration strategy, etc.
 
 In a sense, there are two levels of reuse: microservices, reusing the code, where operations fall under the same team as the rest of the application, and services, reusing the instance as well, where the ownership is more complex and coordination is necessary.
 
@@ -245,9 +246,9 @@ Consider the diagram from figure \ref{fig:automationn} again, this time with inf
 It removes the coordination cost of all product teams depending on a single platform team. If a team needs to change some aspect of their platform or add a missing feature, they can do so for themselves. A platform team will most likely still exist, but the product it delivers is the design and automation of a platform, not the infrastructure itself. This team can become an owner and steward of the platform design, which can and should be internally open source, so that everyone can contribute and the platform engineers can transition into expert support and innovation roles, rather than day to day operations. This is a tried and tested approach which works well for shared, reusable code libraries and services []. With the shared dependency removed, the organisation becomes more horizontally scalable, just like software systems do. Vertical integration leads to horizontal scalability.
 
 \begin{figure}[h]
-        \includegraphics[width=0.45\textwidth]{figs/automation-tools}
-        \caption{Automation techniques}
-        \label{fig:automation-techniques}
+	\includegraphics[width=0.45\textwidth]{figs/automation-tools}
+	\caption{Automation techniques}
+	\label{fig:automation-techniques}
 \end{figure}
 
 Small separate platforms also provide a much smaller blast radius in case things go wrong. On a shared platform, a lot of effort needs to go into preventing cascading failures caused by one application overloading a shared resource and in turn causing a different bottleneck to cause more failure. Isolation features like this are a case of multi-tenancy support, which needs to be built into a shared product platform. This can be completely omitted from a Microplatforms based design.
@@ -277,11 +278,11 @@ The first overarching principle is automation, in other words committing decisio
 
 Immutability, i.e. preventing things from being updated in place implicitly creates a version history of all changes and makes it impossible for anything to change unexpectedly or get into a certain state in any other way than being recreated. Removing previous versions of things is a case of garbage collection to reclaim resources they consume. Immutability decouples values, i.e. the entities (infrastructure, build artifacts, deployments, etc.) from the identities, the way we refer to them over time, e.g. “the customer service”. [Rich Hickey]
 
-Immutability is typically quite easily attained by content addressing - referring to any data by a cryptographic hash of the content itself. This concept appears a few times in our approach: code stored in git is referred to by the sha1 hash of the contents of a given revision [], Docker images and layers can be immutably referred to by a sha256 hash of their content []. 
+Immutability is typically quite easily attained by content addressing - referring to any data by a cryptographic hash of the content itself. This concept appears a few times in our approach: code stored in git is referred to by the sha1 hash of the contents of a given revision [], Docker images and layers can be immutably referred to by a sha256 hash of their content [].
 
 With immutability and with content addressing especially, it is much easier and efficient to compare two items of the same type (i.e. just by their names), enabling idempotence: the concept of actions which can be repeated many times producing no further result beyond the first application. Enabling easy idempotence leads to huge simplification, as we can typically stop focusing on detail and let idempotence handle the unwanted repetition. In a sense, idempotence unifies creation and update and makes both operations the same from outside, moving solutions from imperative to declarative. We can say that idempotence decouples intent from current state. This also appears multiple times: infrastructure provisioning with Terraform, Docker image builds and pushes to registry, deployment to a cluster or response to failure with the reconciliation loop. Everything tries to reach a declared state.
 
-The third major principle is autonomy. In organisations, autonomy removes coordination costs, confusion, bottlenecks and queueing which leads to politics. From a systems perspective, lack of autonomy is a form of coupling. In software engineering, unnecessary coupling is understood to be a problem []. An interesting case of coupling is sharing and reuse, typically seen as purely beneficial without considering the cost. 
+The third major principle is autonomy. In organisations, autonomy removes coordination costs, confusion, bottlenecks and queueing which leads to politics. From a systems perspective, lack of autonomy is a form of coupling. In software engineering, unnecessary coupling is understood to be a problem []. An interesting case of coupling is sharing and reuse, typically seen as purely beneficial without considering the cost.
 
 All of the above - automation, immutability, idempotence and autonomy are cases of simplicity, simple being distinctly different from easy [simple made easy]. By simple, we mean having a minimum of structure, little coupling and entanglement, avoiding N:M relationships between entities. Immutability is also a case of decoupling - mutable state is one of the hardest to understand couplings - a coupling through time.
 
@@ -290,7 +291,7 @@ The chief guiding principle in every decision made when designing a product plat
 \section*{\label{sec:summary}Summary}
 
 Repeat the 5 things that enable Microplatforms
-Repeat the 3 process/engineering approaches that Microplatforms 
+Repeat the 3 process/engineering approaches that Microplatforms
 Go through how this applies to the goals stated in the introduction
 
 \newpage
@@ -303,7 +304,7 @@ A microplatform reference architecture should describe everything that is requir
 A reference architecture does not represent a fully evolved or production-ready state, but may well be used to model an implementation that does.
 
 \bibliography{bibliography}
-\bibliographystyle{plain}
+\bibliographystyle{apalike}
 
 \end{document}
 %

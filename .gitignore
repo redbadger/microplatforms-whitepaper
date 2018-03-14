@@ -6,4 +6,6 @@ __*
 *.synctex.gz
 *.bbl
 *.blg
+*.out
 paperNotes.bib
+.vscode
