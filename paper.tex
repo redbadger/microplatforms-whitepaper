@@ -282,9 +282,11 @@ The chief guiding principle in every decision made when designing a product plat
 
 \section*{\label{sec:summary}Summary}
 
-Repeat the 5 things that enable Microplatforms
-Repeat the 3 process/engineering approaches that Microplatforms
-Go through how this applies to the goals stated in the introduction
+The overall goal of a product platform should be reduction of engineering effort spent on anything but delivering value to customers to the minimum. This covers a vast array of capabilities and as a consequence, designing and building a product platform requires a large up-front and ongoing investment. The traditional way of offseting this cost and ensuring consistency is to build a single, shared, centrally managed product platform to host the entire product portfolio and serve all product delivery teams. We've shown how this approach leads to a growth in scope of the platform features and large coordination costs. The overall effort required can very easily grow to a point of the platform project entirely failing to deliver, or not bringing any return on investment in time, before it is necessary to iterate on the underlying technology choices, requiring yet more investment.
+
+As an alternative, we suggest a different approach focused on enabling autonomy of product delivery teams, which is based on high levels of automation, managing the platform design entirely as a software project, which is internally open source, can be contributed to by everyone, adapted for individual requirements and can evolve with the needs of the organisation and its customers. 
+
+The central concept of the approach is to manage the application, build, testing and deployment pipelines, service orchestration, runtime policies and infrastructure provisioinig as code. The full automation leads to repeatability, consistency of environments and enables safe Continuous Deployment to Production. Adopting solutions based in simplicity, immutability and idempotence reduces the complexity of understanding and effort required to the point of allowing full ownership of their platform by every product delivery team. With the shared platform team dependency removed, the engineering organisation becomes more horizontally scalable and agile and larger portion of the engineering effort can be focused on delivering value to customers. 
 
 \newpage
 \clearpage
