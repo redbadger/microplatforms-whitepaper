@@ -322,11 +322,11 @@ This is Pipeline-as-Code and keeps the build and deploy in step with the applica
 
 \subsection{\label{sec:monorepo}A note about the monorepo}
 
-\begin{figure*}[t!]
-	\includegraphics[width=0.9\textwidth]{figs/monorepo}
+\begin{figure}[b]
+	\includegraphics[width=0.45\textwidth]{figs/monorepo}
 	\caption{Atomic commits across a monorepo}
 	\label{fig:monorepo}
-\end{figure*}
+\end{figure}
 
 It’s important to use a monorepo so that we can do atomic commits across the whole application (including the pipeline). Figure~\ref{fig:monorepo} shows how we can use the git commit SHA (e.g. db77f39) as a version number. This version represents a single handle on our application which is consistent across all microservices and associated artefacts. It’s a pointer to a configuration where every component is designed, built and tested to work together with every other component. It eliminates the need for SemVer~\cite{Semantic13:online} and massively reduces the complexity of dependency management within large microservice orchestrations, ultimately reducing risk and improving reliability of our application.
 
