@@ -7,5 +7,6 @@ __*
 *.bbl
 *.blg
 *.out
+*.dvi
 paperNotes.bib
 .vscode
